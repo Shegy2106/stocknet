@@ -1,0 +1,35 @@
+version: '3'
+services:
+  influxdb:
+    build:
+      context: .
+      dockerfile: influxdb/Dockerfile  
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_USER=${INFLUXDB_USER}  
+      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+    volumes:
+      - ./influxdb-data:/var/lib/influxdb2
+  
+  data-importer:
+    build:
+      context: .
+      dockerfile: data-importer/Dockerfile  
+    container_name: data-importer
+    environment:
+      - INFLUXDB_USER=${INFLUXDB_USER}  
+      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+    depends_on:
+     - influxdb
+        
+
+volumes:
+  influxdb-data:
