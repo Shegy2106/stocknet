@@ -13,7 +13,6 @@ org = os.environ.get("INFLUXDB_ORG")
 bucket = os.environ.get("INFLUXDB_BUCKET")
 url = "http://influxdb:8086"
 
-# Initialize the client
 @retry(tries=3)
 @circuit(failure_threshold=1, recovery_timeout=5)
 def init_client(url, token, org):
@@ -33,8 +32,8 @@ def safe_import_csv(file_path, write_api, url, token, org):
     except Exception as e:
         print(f"Error importing CSV: {e}")
         # Reinitialize client and retry
-        new_write_api = init_client(url, token, org)
-        import_csv(file_path, new_write_api)
+        write_api = init_client(url, token, org)
+        import_csv(file_path, write_api)
 
 # Function to import CSV data
 @retry(tries=10)
@@ -61,7 +60,7 @@ def import_csv(file_path, write_api):
         print(f"Error importing CSV: {e}")
 
 time.sleep(10)
-# Main execution
+
 write_api = init_client(url, token, org)
 directory = "./stocknet-dataset/price/raw"
 for filename in os.listdir(directory):

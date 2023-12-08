@@ -162,4 +162,6 @@ cython_debug/
 #.idea/
 
 influxdb-data/
-data-importer/stocknet-dataset/
+semantic-sentiment-analyst/stocknet-dataset/
+tweet-importer/stocknet-dataset/
+stock-importer/stocknet-dataset/

@@ -8,11 +8,11 @@ RUN apt-get install -y git
 RUN mkdir stocknet-dataset
 RUN git clone https://github.com/yumoxu/stocknet-dataset.git stocknet-dataset
 
-COPY ../data-importer /myapp
+COPY ../tweet-importer /myapp
 
 
 RUN pip install -r /myapp/requirements.txt
 
-CMD ["python", "/myapp/influxdb_import.py"]
+CMD ["python", "/myapp/tweet_import.py"]
 
 
