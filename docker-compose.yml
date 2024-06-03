@@ -1,19 +1,19 @@
 version: '3'
 services:
-  # stock-importer:
-  #   build:
-  #     context: .
-  #     dockerfile: stock-importer/Dockerfile  
-  #   container_name: stock-importer
-  #   environment:
-  #     - INFLUXDB_USER=${INFLUXDB_USER}  
-  #     - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
-  #     - INFLUXDB_ORG=${INFLUXDB_ORG}
-  #     - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
-  #     - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
-  #     - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
-  #   depends_on:
-  #    - influxdb
+  stock-importer:
+    build:
+      context: .
+      dockerfile: stock-importer/Dockerfile  
+    container_name: stock-importer
+    environment:
+      - INFLUXDB_USER=${INFLUXDB_USER}  
+      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    depends_on:
+     - influxdb
 
   tweet-importer:
     build:
@@ -25,21 +25,21 @@ services:
     depends_on:
      - elasticsearch
 
-  # influxdb:
-  #   build:
-  #     context: .
-  #     dockerfile: influxdb/Dockerfile  
-  #   container_name: influxdb
-  #   ports:
-  #     - "8086:8086"
-  #   environment:
-  #     - INFLUXDB_USER=${INFLUXDB_USER}  
-  #     - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
-  #     - INFLUXDB_ORG=${INFLUXDB_ORG}
-  #     - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
-  #     - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
-  #   volumes:
-  #     - ./influxdb-data:/var/lib/influxdb2
+  influxdb:
+    build:
+      context: .
+      dockerfile: influxdb/Dockerfile  
+    container_name: influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      - INFLUXDB_USER=${INFLUXDB_USER}  
+      - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+    volumes:
+      - ./influxdb-data:/var/lib/influxdb2
     
   elasticsearch:
     build:

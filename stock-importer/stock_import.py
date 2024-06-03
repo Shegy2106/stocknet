@@ -40,10 +40,12 @@ def safe_import_csv(file_path, write_api, url, token, org):
 @circuit(failure_threshold=1, recovery_timeout=10)
 def import_csv(file_path, write_api):
     try:
+        print(file_path)
         df = pd.read_csv(file_path)
         symbol = Path(file_path).stem
 
         for index, row in df.iterrows():
+            print(row)
             point = Point("stock_data") \
                 .tag("symbol", symbol) \
                 .field("open", float(row['Open'])) \
@@ -61,6 +63,7 @@ def import_csv(file_path, write_api):
 
 time.sleep(10)
 
+print("starting to import stock data into influxdb")
 write_api = init_client(url, token, org)
 directory = "./stocknet-dataset/price/raw"
 for filename in os.listdir(directory):
