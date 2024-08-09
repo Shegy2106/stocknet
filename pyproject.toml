@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "stocknet"
+version = "0.1.0"
+description = ""
+authors = ["Darko Segvic <darko.segvic@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.12"
+jupyter = "^1.0.0"
+statsmodels = "^0.14.2"
+matplotlib = "^3.9.0"
+hyperopt = "^0.2.7"
+pmdarima = "^2.0.4"
+tensorflow = "^2.17.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
